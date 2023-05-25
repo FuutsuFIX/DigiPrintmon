@@ -49,6 +49,9 @@ function generatePDF() {
                 loadedImages++; // Incrementa il conteggio delle immagini caricate
 
                 if (loadedImages === totalImages) {
+                    if (cardsPerPage === 0) {
+                        doc.deletePage(doc.getNumberOfPages()); // Rimuovi l'ultima pagina
+                    }
                     doc.save("carte_proxy.pdf"); // Esegui il download del PDF quando tutte le immagini sono state caricate
                 }
             });

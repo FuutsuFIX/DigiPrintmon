@@ -16,7 +16,7 @@ function generatePDF() {
         const parts = line.split(/\s+(?=\S)/);
         const quantity = parts[0];
         const name = parts.slice(1, -1).join(' ');
-        const code = parts[parts.length - 1].trim(); // Rimuovi gli spazi in eccesso dal codice
+        const code = parts[parts.length - 1].trim().toUpperCase(); // Rimuovi gli spazi in eccesso dal codice e converti in maiuscolo
 
         if (code.length === 0) {
             // Salta la riga se il codice è vuoto
@@ -50,7 +50,7 @@ function generatePDF() {
 
                 if (loadedImages === totalImages) {
                     if (cardsPerPage === 0) {
-                        doc.deletePage(doc.getNumberOfPages()); // Rimuovi l'ultima pagina
+                        doc.deletePage(doc.getNumberOfPages()); // Rimuovi l'ultima pagina se è vuota
                     }
                     doc.save("carte_proxy.pdf"); // Esegui il download del PDF quando tutte le immagini sono state caricate
                 }

@@ -8,15 +8,21 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>DigiPrintMon</h1>
-    <textarea
-      id="cardList"
-      rows="10"
-      cols="50"
-      placeholder="Inserisci la lista di carte..."
-    ></textarea>
-    <br />
-    <button onclick="generatePDF()">Download PDF</button>
+    <div class="center_container">
+      <h1>DigiPrintMon</h1>
+      <textarea
+        id="cardList"
+        rows="10"
+        cols="50"
+        placeholder="Paste Card List here
+Format:
+Quantity Name Id
+Name is optional
+"
+      ></textarea>
+      <br />
+      <button onclick="generatePDF()">Download PDF</button>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="script.js"></script>
   </body>

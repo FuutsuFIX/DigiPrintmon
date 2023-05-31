@@ -1,14 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=DotGothic16&family=Silkscreen&display=swap");
+/*font-family: 'DotGothic16', sans-serif;
+font-family: 'VT323', monospace;*/
 body {
   background-color: #222;
   color: #fff;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 20px;
+  font-family: "DotGothic16", sans-serif;
 }
-
+.center_container {
+  width: 95%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
 h1 {
-  font-size: 28px;
+  font-size: 64px;
+  font-weight: normal;
+  letter-spacing: 8px;
   margin-bottom: 20px;
+  font-family: "Silkscreen", cursive;
 }
 
 textarea {
@@ -22,6 +34,8 @@ textarea {
   color: #333;
   resize: none;
   margin-bottom: 32px;
+  font-family: "DotGothic16", sans-serif;
+  letter-spacing: 4px;
 }
 
 button {
@@ -31,10 +45,11 @@ button {
   background-color: #4caf50;
   color: #fff;
   cursor: pointer;
+  font-family: "DotGothic16", sans-serif;
+  letter-spacing: 4px;
+  font-weight: bold;
 }
 
 button:hover {
   background-color: #45a049;
 }
-
-/* Aggiungi ulteriori regole CSS per personalizzare il tuo stile cybernatico */

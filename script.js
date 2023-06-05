@@ -13,6 +13,11 @@ function generatePDF() {
     let totalImages = 0; // Numero totale di immagini da caricare
 
     lines.forEach(line => {
+        // Ignora le linee che iniziano con //
+        if (line.trim().startsWith("//")) {
+            return;
+        }
+
         const parts = line.split(/\s+(?=\S)/);
         const quantity = parts[0];
         const name = parts.slice(1, -1).join(' ');

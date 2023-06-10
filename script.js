@@ -11,6 +11,7 @@ function generatePDF() {
     let cardsPerPage = 0;
     let loadedImages = 0; // Conteggio delle immagini caricate
     let totalImages = 0; // Numero totale di immagini da caricare
+    const invalidLines = []; // Array per tenere traccia delle linee errate
 
     lines.forEach(line => {
         // Ignora le linee che iniziano con //
@@ -19,7 +20,7 @@ function generatePDF() {
         }
 
         const parts = line.split(/\s+(?=\S)/);
-        const quantity = parts[0];
+        const quantity = parseInt(parts[0]);
         const name = parts.slice(1, -1).join(' ');
         const code = parts[parts.length - 1].trim().toUpperCase(); // Rimuovi gli spazi in eccesso dal codice e converti in maiuscolo
 
@@ -28,12 +29,12 @@ function generatePDF() {
             return;
         }
 
-        totalImages += parseInt(quantity); // Aggiorna il numero totale di immagini da caricare
+        totalImages += quantity; // Aggiorna il numero totale di immagini da caricare
 
-        for (let i = 0; i < parseInt(quantity); i++) {
-            const imageUrl = imageBaseUrl + code + ".jpg";
+        const imageUrl = imageBaseUrl + code + ".jpg";
 
-            loadImage(imageUrl, (image) => {
+        loadImage(imageUrl, (image) => {
+            for (let i = 0; i < quantity; i++) {
                 doc.addImage(image, "JPEG", xOffset, yOffset, 63, 88);
 
                 xOffset += 63; // Larghezza della carta
@@ -50,23 +51,49 @@ function generatePDF() {
                     yOffset = 10;
                     cardsPerPage = 0;
                 }
+            }
 
-                loadedImages++; // Incrementa il conteggio delle immagini caricate
+            loadedImages += quantity; // Incrementa il conteggio delle immagini caricate
 
-                if (loadedImages === totalImages) {
-                    if (cardsPerPage === 0) {
-                        doc.deletePage(doc.getNumberOfPages()); // Rimuovi l'ultima pagina se è vuota
-                    }
-                    doc.save("carte_proxy.pdf"); // Esegui il download del PDF quando tutte le immagini sono state caricate
+            if (loadedImages === totalImages) {
+                if (cardsPerPage === 0) {
+                    doc.deletePage(doc.getNumberOfPages()); // Rimuovi l'ultima pagina se è vuota
                 }
-            });
-        }
+
+                if (invalidLines.length > 0) {
+                    const errorMessage = "The following lines contain invalid or missing cards: \n\n" + invalidLines.join("\n");
+                    showError(errorMessage);
+                } else {
+                    doc.save("DigiProxy.pdf"); // Esegui il download del PDF quando tutte le immagini sono state caricate
+                }
+            }
+        }, () => {
+            // Aggiungi la linea errata all'array delle linee errate solo se non è già presente
+            if (!invalidLines.includes(line)) {
+                invalidLines.push(line);
+            }
+
+            loadedImages += quantity; // Incrementa il conteggio delle immagini caricate
+
+            if (loadedImages === totalImages) {
+                if (cardsPerPage === 0) {
+                    doc.deletePage(doc.getNumberOfPages()); // Rimuovi l'ultima pagina se è vuota
+                }
+
+                if (invalidLines.length > 0) {
+                    const errorMessage = "The following lines contain invalid or missing cards: \n\n" + invalidLines.join("\n");
+                    showError(errorMessage);
+                } else {
+                    doc.save("DigiProxy.pdf"); // Esegui il download del PDF quando tutte le immagini sono state caricate
+                }
+            }
+        });
     });
 }
 
-function loadImage(url, callback) {
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
+function loadImage(url, callback, errorCallback) {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
     const image = new Image();
 
     image.crossOrigin = "Anonymous";
@@ -75,8 +102,16 @@ function loadImage(url, callback) {
         canvas.width = image.width;
         canvas.height = image.height;
         context.drawImage(image, 0, 0);
-        callback(canvas.toDataURL('image/jpeg'));
+        callback(canvas.toDataURL("image/jpeg"));
+    };
+
+    image.onerror = function () {
+        errorCallback();
     };
 
     image.src = url;
+}
+
+function showError(message) {
+    alert(message);
 }

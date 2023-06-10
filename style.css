@@ -1,14 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=DotGothic16&family=Silkscreen&display=swap");
-/*font-family: 'DotGothic16', sans-serif;
-font-family: 'VT323', monospace;*/
+
 body {
-  background-color: #222;
-  color: #fff;
+  background-color: #1c1d16;
+  color: #eaebe5;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 20px;
   font-family: "DotGothic16", sans-serif;
 }
+
 .center_container {
   width: 95%;
   margin: auto;
@@ -16,6 +16,8 @@ body {
   flex-direction: column;
   align-items: center;
 }
+
+/* Stili per dispositivi desktop larghi */
 h1 {
   font-size: 64px;
   font-weight: normal;
@@ -24,15 +26,50 @@ h1 {
   font-family: "Silkscreen", cursive;
 }
 
+/* Media queries per dispositivi desktop medi */
+@media only screen and (max-width: 1200px) {
+  h1 {
+    font-size: 56px;
+    letter-spacing: 6px;
+    margin-bottom: 16px;
+  }
+}
+
+/* Media queries per dispositivi desktop piccoli */
+@media only screen and (max-width: 992px) {
+  h1 {
+    font-size: 48px;
+    letter-spacing: 4px;
+    margin-bottom: 12px;
+  }
+}
+
+/* Media queries per tablet */
+@media only screen and (max-width: 768px) {
+  h1 {
+    font-size: 40px;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  h1 {
+    font-size: 32px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+}
+
 textarea {
   max-width: 800px;
   width: 90%;
   height: 200px;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  color: #333;
+  border-radius: 2px;
+  background-color: #eaebe5;
+  color: #1c1d16;
   resize: none;
   margin-bottom: 32px;
   font-family: "DotGothic16", sans-serif;
@@ -41,17 +78,20 @@ textarea {
 
 button {
   padding: 10px 20px;
+  border-radius: 2px;
   font-size: 16px;
   width: 200px;
   border: none;
-  background-color: #4caf50;
-  color: #fff;
+  background-color: #1a60ad;
+  color: #eaebe5;
   cursor: pointer;
   font-family: "DotGothic16", sans-serif;
   letter-spacing: 4px;
   font-weight: bold;
+  transition: all 0.2s;
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #07a2de;
+  color: #eaebe5;
 }

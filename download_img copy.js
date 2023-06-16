@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Variabile per il controllo dei doppioni
-const checkDuplicates = true;
+const checkDuplicates = false;
 
 async function downloadImage(url, filename) {
     return new Promise((resolve, reject) => {

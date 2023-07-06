@@ -1,5 +1,16 @@
 const { jsPDF } = window.jspdf;
 
+const swapCheckbox = document.getElementById("swapOrder");
+const cardListInput = document.getElementById("cardList");
+let originalPlaceholder = cardListInput.placeholder;
+
+swapCheckbox.addEventListener("change", function () {
+    if (this.checked) {
+        cardListInput.placeholder = "Paste Card List here\nFormat:\nId Name Quantity\nName is optional";
+    } else {
+        cardListInput.placeholder = "Paste Card List here\nFormat:\nQuantity Name Id\nName is optional";
+    }
+});
 function generatePDF() {
     const cardList = document.getElementById("cardList").value.trim();
     const lines = cardList.split("\n");
@@ -13,6 +24,9 @@ function generatePDF() {
     let totalImages = 0; // Numero totale di immagini da caricare
     const invalidLines = []; // Array per tenere traccia delle linee errate
 
+    const swapCheckbox = document.getElementById("swapOrder");
+    const swapOrder = swapCheckbox.checked;
+
     lines.forEach(line => {
         // Ignora le linee che iniziano con //
         if (line.trim().startsWith("//")) {
@@ -20,18 +34,26 @@ function generatePDF() {
         }
 
         const parts = line.split(/\s+(?=\S)/);
-        const quantity = parseInt(parts[0]);
-        const name = parts.slice(1, -1).join(' ');
-        const code = parts[parts.length - 1].trim().toUpperCase(); // Rimuovi gli spazi in eccesso dal codice e converti in maiuscolo
+        let quantity, name, id;
 
-        if (code.length === 0) {
-            // Salta la riga se il codice è vuoto
+        if (swapOrder) {
+            quantity = parseInt(parts[parts.length - 1]);
+            name = parts.slice(1, -1).join(' ');
+            id = parts[0].trim().toUpperCase();
+        } else {
+            quantity = parseInt(parts[0]);
+            name = parts.slice(1, -1).join(' ');
+            id = parts[parts.length - 1].trim().toUpperCase();
+        }
+
+        if (id.length === 0) {
+            // Salta la riga se l'ID è vuoto
             return;
         }
 
         totalImages += quantity; // Aggiorna il numero totale di immagini da caricare
 
-        const imageUrl = imageBaseUrl + code + ".jpg";
+        const imageUrl = imageBaseUrl + id + ".jpg";
 
         loadImage(imageUrl, (image) => {
             for (let i = 0; i < quantity; i++) {
@@ -68,7 +90,7 @@ function generatePDF() {
                 }
             }
         }, () => {
-            // Aggiungi la linea errata all'array delle linee errate solo se non è già presente
+            // Aggiungi la linea errata all'array delle linelinee errate solo se non è già presente
             if (!invalidLines.includes(line)) {
                 invalidLines.push(line);
             }

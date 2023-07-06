@@ -97,7 +97,7 @@ textarea {
 /* Footer */
 footer {
   width: 100%;
-  padding: 24px 0;
+  padding: 24px 0 64px;
   gap: 24px;
   background-color: #1a60ad;
   border-top: 2px solid #ffffff;
@@ -197,4 +197,16 @@ footer img:hover {
     line-height: 20px;
     letter-spacing: -0.1em;
   }
+}
+
+.swapFormBox {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.swapFormBox p {
+  display: inline-block;
+  width: 95%;
 }

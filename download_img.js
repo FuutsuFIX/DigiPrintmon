@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Variabile per il controllo dei doppioni
-const checkDuplicates = true;
+const checkDuplicates = false;
 
 async function downloadImage(url, filename) {
     return new Promise((resolve, reject) => {
@@ -30,7 +30,8 @@ async function downloadImages(database) {
 
     for (const item of database) {
         const imageUrl = item.imageUrl;
-        const imageName = item.cardid.replace('/', '-') + '.jpg';
+        const cardid = item.cardid.replace('/', '-');
+        const imageName = item.p !== null ? `${cardid}_${item.p}.jpg` : `${cardid}.jpg`;
         const imagePath = path.join(imgFolder, imageName);
 
         // Verifica dei doppioni solo se la variabile checkDuplicates è impostata su true

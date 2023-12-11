@@ -24,7 +24,7 @@
       name="keywords"
       content="Digimon Card Game proxy, proxy maker, printable proxies, Digimon Card Game 2020"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style_v4.css" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <script
       src="https://kit.fontawesome.com/c217c3081d.js"
@@ -48,8 +48,10 @@
             Quantity Name Id <br /><br />
 
             In case you are a
-            <a href="https://digimoncard.app">digimoncard.app</a> user, just
-            check the box that is placed over the textbox!<br />
+            <a target="_blank" href="https://digimoncard.app"
+              >digimoncard.app</a
+            >
+            user, just check the box that is placed over the textbox!<br />
             This will change the format into<br />
             Id Name Quantity<br /><br />
             The Name is optional in both cases.<br /><br />
@@ -67,19 +69,37 @@
             > Copy the text in the section and paste in the textbox here<br /><br />
             Everything is ready,press download pdf and have fun !
           </p>
+          <h2>Want to use your favourite artwork?</h2>
+          <p>
+            In order to choose an artwork for a card, follow these
+            instruction:<br />
+            You can write _P1, _P2 and ecc to choose any artwork after the card
+            code.
+
+            <br />For example:<br />
+            1 Agumon BT1-010_P1<br />
+            is going to use its first released alternative artwork.<br /><br />
+          </p>
         </div>
+
         <div class="interaction">
           <h2>Insert your Digimon Cards' list here:</h2>
 
-          <span class="swapFormBox"
-            ><input type="checkbox" id="swapOrder" />
-            <p>
-              Invert input form (<a href="https://digimoncard.app"
+          <div class="swapFormBox">
+            <input type="checkbox" id="swapOrder" />
+            <label for="swapOrder">
+              Invert input form (<a
+                target="_blank"
+                href="https://digimoncard.app"
                 >digimoncard.app</a
               >
               support)
-            </p>
-          </span>
+            </label>
+          </div>
+          <div class="spacing-checkbox">
+            <input type="checkbox" id="enableSpacing" />
+            <label for="enableSpacing">Enable Spacing</label>
+          </div>
           <textarea
             id="cardList"
             rows="10"
@@ -90,6 +110,7 @@ Quantity Name Id
 Name is optional
 "
           ></textarea>
+
           <button onclick="generatePDF()">Download PDF</button>
           <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script>
           <script>
@@ -104,7 +125,7 @@ Name is optional
       </div>
       <h2>
         Found a bug? Asking for a feature? Write it
-        <a href="https://forms.gle/QoAPjFeUZBWJrfdi7">here!</a>
+        <a target="_blank" href="https://forms.gle/QoAPjFeUZBWJrfdi7">here!</a>
       </h2>
     </div>
     <footer>
@@ -128,6 +149,6 @@ Name is optional
       </p>
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="script.js"></script>
+    <script src="script_v3.js"></script>
   </body>
 </html>
